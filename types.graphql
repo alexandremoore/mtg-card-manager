@@ -1,0 +1,69 @@
+type Set @model {
+  id: ID! @isUnique
+  name: String!
+  slug: String!
+  code: String! @isUnique
+  magicCardsInfoCode: String
+  gathererCode: String
+  oldCode: String
+  releaseDate: DateTime!
+  border: String
+  type: String
+  block: String
+  cards: [Card!]! @relation(name: "SetCards")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type CardLegality @model {
+  id: ID! @isUnique
+  cards: [Card!]! @relation(name: "CardLegalities")
+  format: String!
+  legality: String!
+}
+
+type CardRuling @model {
+  id: ID! @isUnique
+  cards: [Card!]! @relation(name: "CardRulings")
+  text: String!
+  date: DateTime!
+}
+
+type Card @model {
+  id: ID! @isUnique
+  slug: String!
+  artist: String
+  cmc: Int
+  colorIdentity: [String!]
+  colors: [String!]
+  flavor: String
+  imageName: String
+  layout: String
+  legalities: [CardLegality!]! @relation(name: "CardLegalities")
+  loyalty: String
+  manaCost: String
+  mciNumber: String
+  mtgjsonId: String @isUnique
+  multiverseid: Int
+  name: String!
+  names: [String!]
+  number: String
+  originalText: String
+  originalType: String
+  power: String
+  printings: [String!]
+  rarity: String
+  rulings: [CardRuling!]! @relation(name: "CardRulings")
+  side: String
+  source: String
+  subtype: String
+  subtypes: [String!]
+  supertypes: [String!]
+  text: String
+  toughness: String
+  type: String
+  types: [String!]
+  set: Set! @relation(name: "SetCards")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
